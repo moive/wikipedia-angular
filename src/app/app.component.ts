@@ -8,7 +8,8 @@ import { SearchService } from './pages/search/search.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private readonly searchService: SearchService) {
-    this.searchService.search('angular').pipe(tap(console.log)).subscribe();
+  constructor(private readonly searchService: SearchService) {}
+  onSearch(val: string) {
+    this.searchService.search(val).pipe(tap(console.log)).subscribe();
   }
 }
