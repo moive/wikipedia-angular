@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -20,7 +20,13 @@ export class SearchComponent implements OnInit {
 
   onChange(): void {
     this.inputSearch.valueChanges
-      .pipe(tap((res) => this.submitted.emit(`${res}`)))
+      .pipe(
+        map((search) => search!.trim()),
+        debounceTime(350),
+        distinctUntilChanged(),
+        filter((s: string) => s !== ''),
+        tap((res) => this.submitted.emit(`${res}`))
+      )
       .subscribe();
   }
 }
