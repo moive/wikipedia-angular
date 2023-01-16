@@ -1,0 +1,9 @@
+<article class="app-article">
+  <small>{{ "https://en.wikipedia.org/?curid=" + article.pageid }}</small>
+  <a
+    [href]="'https://en.wikipedia.org/?curid=' + article.pageid"
+    target="_blank"
+    >{{ article.title }}</a
+  >
+  <p [innerHTML]="article.snippet"></p>
+</article>
